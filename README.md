@@ -4,7 +4,7 @@
 [![GuardDuty](https://img.shields.io/badge/AWS-GuardDuty-red)](https://aws.amazon.com/guardduty/)
 [![Config](https://img.shields.io/badge/AWS-Config-blue)](https://aws.amazon.com/config/)
 [![Access Analyzer](https://img.shields.io/badge/AWS-Access%20Analyzer-green)](https://aws.amazon.com/iam/access-analyzer/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Overview
 
@@ -22,16 +22,18 @@ The AWS Audit Platform is an enterprise-grade security monitoring and compliance
 
 ## 📋 Table of Contents
 
-- [Architecture Overview](#architecture-overview)
+- [Architecture Overview](#-architecture-overview)
 - [Quick Start](#quick-start)
-- [Installation](#installation)
 - [Configuration](#configuration)
+- [Security Services](#security-services)
 - [Monitoring & Dashboards](#monitoring--dashboards)
-- [Security Features](#security-features)
-- [Compliance Frameworks](#compliance-frameworks)
-- [Troubleshooting](#troubleshooting)
-- [API Documentation](#api-documentation)
-- [Contributing](#contributing)
+- [Cost Management](#cost-management)
+- [API Reference](#api-reference)
+- [CI/CD Pipeline](#cicd-pipeline)
+- [Security Considerations](#security-considerations)
+- [Troubleshooting](#-troubleshooting)
+- [Compliance Frameworks](#-compliance-frameworks)
+- [Contributing](#-contributing)
 
 ## 🏛️ Architecture Overview
 
@@ -393,7 +395,7 @@ aws sts assume-role --role-arn arn:aws:iam::ACCOUNT:role/SecurityAuditRole --rol
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## Support
 
@@ -466,11 +468,8 @@ CUSTOM_RULE = {
 ## 📚 Documentation
 
 - [Deployment Guide](./docs/deployment-guide.md)
-- [Architecture Deep Dive](./docs/architecture.md)
-- [Security Best Practices](./docs/security-best-practices.md)
-- [API Reference](./docs/api-reference.md)
-- [Troubleshooting Guide](./docs/troubleshooting.md)
-- [Cost Optimization](./docs/cost-optimization.md)
+- [API Reference](./docs/api.md)
+- [Troubleshooting Guide](./docs/troubleshooting-guide.md)
 
 ## 🧪 Testing
 
@@ -494,7 +493,7 @@ python -m pytest tests/test_notifications.py
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## 🏆 Awards & Recognition
 
@@ -523,7 +522,7 @@ This solution is designed to be award-winning with:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## Acknowledgments
 
