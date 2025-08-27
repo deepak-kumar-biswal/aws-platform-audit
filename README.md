@@ -35,10 +35,6 @@ The AWS Audit Platform is an enterprise-grade security monitoring and compliance
 
 ## 🏛️ Architecture Overview
 
-### Hub-and-Spoke Architecture
-
-## Architecture Overview
-
 ### Hub-and-Spoke Design
 
 The AWS Audit Platform uses a centralized hub-and-spoke architecture for efficient security monitoring across thousands of AWS accounts:
