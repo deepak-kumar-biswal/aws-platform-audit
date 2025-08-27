@@ -1,0 +1,59 @@
+{
+  "description": "Production spoke accounts for AWS Audit Platform",
+  "environment": "prod",
+  "last_updated": "2024-08-27",
+  "spoke_accounts": [
+    {
+      "account_id": "123456789012",
+      "account_name": "production-workloads",
+      "owner_team": "platform-engineering",
+      "business_unit": "technology",
+      "compliance_requirements": ["soc2", "pci-dss"],
+      "monitoring_level": "enhanced",
+      "regions": ["us-east-1", "us-west-2"],
+      "data_classification": "confidential"
+    },
+    {
+      "account_id": "123456789013", 
+      "account_name": "production-data",
+      "owner_team": "data-engineering",
+      "business_unit": "analytics",
+      "compliance_requirements": ["soc2", "hipaa"],
+      "monitoring_level": "enhanced",
+      "regions": ["us-east-1", "eu-west-1"],
+      "data_classification": "restricted"
+    },
+    {
+      "account_id": "123456789014",
+      "account_name": "production-networking",
+      "owner_team": "network-engineering", 
+      "business_unit": "infrastructure",
+      "compliance_requirements": ["soc2"],
+      "monitoring_level": "standard",
+      "regions": ["us-east-1", "us-west-2", "eu-west-1"],
+      "data_classification": "internal"
+    },
+    {
+      "account_id": "123456789015",
+      "account_name": "production-security",
+      "owner_team": "security-engineering",
+      "business_unit": "cybersecurity", 
+      "compliance_requirements": ["soc2", "pci-dss", "hipaa"],
+      "monitoring_level": "maximum",
+      "regions": ["us-east-1", "us-west-2"],
+      "data_classification": "restricted"
+    }
+  ],
+  "deployment_settings": {
+    "parallel_deployments": 2,
+    "deployment_timeout_minutes": 30,
+    "rollback_on_failure": true,
+    "validation_required": true,
+    "approval_required": true
+  },
+  "notification_settings": {
+    "deployment_notifications": true,
+    "failure_notifications": true,
+    "success_notifications": false
+  }
+}

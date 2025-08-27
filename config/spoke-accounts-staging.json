@@ -1,0 +1,49 @@
+{
+  "description": "Staging spoke accounts for AWS Audit Platform",
+  "environment": "staging",
+  "last_updated": "2024-08-27", 
+  "spoke_accounts": [
+    {
+      "account_id": "888888888887",
+      "account_name": "staging-workloads",
+      "owner_team": "platform-engineering",
+      "business_unit": "technology",
+      "compliance_requirements": ["soc2"],
+      "monitoring_level": "enhanced", 
+      "regions": ["us-east-1", "us-west-2"],
+      "data_classification": "confidential"
+    },
+    {
+      "account_id": "888888888886",
+      "account_name": "staging-data",
+      "owner_team": "data-engineering",
+      "business_unit": "analytics",
+      "compliance_requirements": ["soc2"],
+      "monitoring_level": "enhanced",
+      "regions": ["us-east-1"],
+      "data_classification": "confidential"
+    },
+    {
+      "account_id": "888888888885",
+      "account_name": "staging-integration",
+      "owner_team": "qa-engineering",
+      "business_unit": "technology",
+      "compliance_requirements": ["soc2"],
+      "monitoring_level": "standard",
+      "regions": ["us-east-1"],
+      "data_classification": "internal"
+    }
+  ],
+  "deployment_settings": {
+    "parallel_deployments": 2,
+    "deployment_timeout_minutes": 25,
+    "rollback_on_failure": true,
+    "validation_required": true,
+    "approval_required": true
+  },
+  "notification_settings": {
+    "deployment_notifications": true,
+    "failure_notifications": true,
+    "success_notifications": true
+  }
+}

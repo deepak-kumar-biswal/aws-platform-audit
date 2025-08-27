@@ -1,0 +1,39 @@
+{
+  "description": "Development spoke accounts for AWS Audit Platform",
+  "environment": "dev", 
+  "last_updated": "2024-08-27",
+  "spoke_accounts": [
+    {
+      "account_id": "999999999998",
+      "account_name": "dev-workloads",
+      "owner_team": "platform-engineering",
+      "business_unit": "technology",
+      "compliance_requirements": [],
+      "monitoring_level": "basic",
+      "regions": ["us-east-1"],
+      "data_classification": "internal"
+    },
+    {
+      "account_id": "999999999997",
+      "account_name": "dev-sandbox",
+      "owner_team": "development",
+      "business_unit": "technology", 
+      "compliance_requirements": [],
+      "monitoring_level": "basic",
+      "regions": ["us-east-1"],
+      "data_classification": "internal"
+    }
+  ],
+  "deployment_settings": {
+    "parallel_deployments": 1,
+    "deployment_timeout_minutes": 15,
+    "rollback_on_failure": true,
+    "validation_required": false,
+    "approval_required": false
+  },
+  "notification_settings": {
+    "deployment_notifications": false,
+    "failure_notifications": true,
+    "success_notifications": false
+  }
+}
