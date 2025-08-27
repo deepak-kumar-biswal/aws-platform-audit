@@ -1,10 +1,23 @@
-# AWS Audit Platform - Enterprise Security Monitoring Solution
+<div align="center">
+  <img src="https://img.shields.io/badge/🛡️-AWS%20Security%20Platform-blue?style=for-the-badge&logoColor=white" alt="AWS Security"/>
+  <img src="https://img.shields.io/badge/🏢-Enterprise%20Scale-orange?style=for-the-badge" alt="Enterprise"/>
+  <img src="https://img.shields.io/badge/⚡-1000%2B%20Accounts-red?style=for-the-badge" alt="Scale"/>
+</div>
+
+<div align="center">
+  <h1>AWS Audit Platform - Enterprise Security Monitoring Solution</h1>
+  <p><strong>Enterprise-grade security monitoring and compliance for 1000+ AWS accounts</strong></p>
+</div>
+
+<div align="center">
 
 [![AWS Security Hub](https://img.shields.io/badge/AWS-Security%20Hub-orange)](https://aws.amazon.com/security-hub/)
 [![GuardDuty](https://img.shields.io/badge/AWS-GuardDuty-red)](https://aws.amazon.com/guardduty/)
 [![Config](https://img.shields.io/badge/AWS-Config-blue)](https://aws.amazon.com/config/)
 [![Access Analyzer](https://img.shields.io/badge/AWS-Access%20Analyzer-green)](https://aws.amazon.com/iam/access-analyzer/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+</div>
 
 ## Overview
 
