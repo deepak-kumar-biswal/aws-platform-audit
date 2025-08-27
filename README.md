@@ -258,11 +258,31 @@ This solution is designed to be award-winning with:
 
 ## 📞 Support
 
-- **Issues**: GitHub Issues
-- **Documentation**: [Wiki](./docs/)
-- **Community**: [Discussions](./discussions/)
-- **Enterprise Support**: Available upon request
+### Documentation
+- [Architecture Deep Dive](ARCHITECTURE.md)
+- [Final Review](FINAL-REVIEW.md)
+- [Test Plan](TEST-PLAN.md)
+- [Deployment Guide](docs/deployment-guide.md)
+- [API Reference](docs/api.md)
+- [Troubleshooting Guide](docs/troubleshooting-guide.md)
+
+### Getting Help
+- Create an issue in the repository
+- Contact the security team
+- Check the troubleshooting guide
+- Review CloudWatch logs
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- AWS Security services documentation
+- Terraform AWS provider community
+- Open source security tools and frameworks
+- Enterprise security best practices
 
 ---
 
-*Built with ❤️ for DevOps and Cloud Engineers worldwide*
+**Built with ❤️ for enterprise security at scale**
