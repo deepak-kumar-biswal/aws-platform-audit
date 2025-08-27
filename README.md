@@ -22,7 +22,7 @@ The AWS Audit Platform is an enterprise-grade security monitoring and compliance
 
 ## 📋 Table of Contents
 
-- [Architecture Overview](#-architecture-overview)
+- [Architecture Overview](#architecture-overview)
 - [Quick Start](#quick-start)
 - [Configuration](#configuration)
 - [Security Services](#security-services)
@@ -31,9 +31,9 @@ The AWS Audit Platform is an enterprise-grade security monitoring and compliance
 - [API Reference](#api-reference)
 - [CI/CD Pipeline](#cicd-pipeline)
 - [Security Considerations](#security-considerations)
-- [Troubleshooting](#-troubleshooting)
-- [Compliance Frameworks](#-compliance-frameworks)
-- [Contributing](#-contributing)
+- [Troubleshooting](#troubleshooting)
+- [Compliance Frameworks](#compliance-frameworks)
+- [Contributing](#contributing)
 
 ## 🏛️ Architecture Overview
 
