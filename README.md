@@ -37,6 +37,12 @@ The AWS Audit Platform is an enterprise-grade security monitoring and compliance
 
 ### Hub-and-Spoke Architecture
 
+## Architecture Overview
+
+### Hub-and-Spoke Design
+
+The AWS Audit Platform uses a centralized hub-and-spoke architecture for efficient security monitoring across thousands of AWS accounts:
+
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                    HUB ACCOUNT                          │
@@ -70,102 +76,349 @@ The AWS Audit Platform is an enterprise-grade security monitoring and compliance
 SPOKE ACCOUNTS → EventBridge → Hub Account → Processing → Dashboard/Alerts
 ```
 
-## ⚡ Quick Start
+## Quick Start
 
 ### Prerequisites
 - AWS CLI configured with appropriate permissions
 - Terraform >= 1.0
 - Python >= 3.9
-- Node.js >= 16 (for dashboard components)
+- Access to AWS Organizations (for multi-account setup)
 
-### 1-Minute Setup
-```bash
-# Clone and setup
-git clone <repository-url>
-cd aws-platform-audit
+### Deploy Hub Account
 
-# Deploy hub account
-cd terraform/hub
-terraform init
-terraform plan -var-file="../../config/hub-prod.tfvars"
-terraform apply -auto-approve
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd aws-audit-platform/aws-platform-audit
+   ```
 
-# Deploy spoke accounts (automated via GitHub Actions)
-# Configure spoke account IDs in config/spoke-accounts.json
-```
+2. **Configure environment**
+   ```bash
+   # Copy and modify configuration
+   cp config/prod.auto.tfvars.example config/prod.auto.tfvars
+   cp config/spoke-accounts-prod.json.example config/spoke-accounts-prod.json
+   
+   # Update with your account IDs and settings
+   ```
 
-## 🔧 Installation
+3. **Deploy hub infrastructure**
+   ```bash
+   cd terraform/hub
+   terraform init
+   terraform plan -var-file="../../config/prod.auto.tfvars"
+   terraform apply -var-file="../../config/prod.auto.tfvars"
+   ```
 
-### Hub Account Setup
-```bash
-# 1. Initialize Terraform
-cd terraform/hub
-terraform init
+### Deploy Spoke Accounts
 
-# 2. Configure variables
-cp ../../examples/hub.auto.tfvars.example hub.auto.tfvars
-# Edit hub.auto.tfvars with your configuration
+1. **For each spoke account, deploy the spoke infrastructure**
+   ```bash
+   cd terraform/spoke
+   terraform init
+   terraform plan -var="hub_account_id=YOUR_HUB_ACCOUNT_ID"
+   terraform apply -var="hub_account_id=YOUR_HUB_ACCOUNT_ID"
+   ```
 
-# 3. Deploy
-terraform plan
-terraform apply
-```
+2. **Alternatively, use the automated CI/CD pipeline**
+   - Push changes to the main branch
+   - GitHub Actions will deploy to all configured environments
 
-### Spoke Account Setup (Automated)
-The spoke accounts are deployed automatically via GitHub Actions when you:
-1. Add account IDs to `config/spoke-accounts.json`
-2. Push to main branch
-3. GitHub Actions will deploy to all specified accounts
+## Configuration
 
-## 📊 Monitoring & Dashboards
+### Environment Configurations
 
-### Executive Dashboard
-- **Security Score** - Overall security posture across all accounts
-- **Compliance Status** - Real-time compliance framework adherence
-- **Cost Impact** - Security-related cost implications
-- **Risk Heatmap** - Geographic and service-based risk visualization
+The platform supports multiple environments with different configuration profiles:
 
-### Operational Dashboard
-- **Active Incidents** - Real-time security findings
-- **Remediation Status** - Automated fix tracking
-- **Performance Metrics** - System health and performance
-- **Audit Trail** - Recent security events and actions
+#### Production (`config/prod.auto.tfvars`)
+- Full monitoring and compliance
+- All security services enabled
+- Enhanced monitoring and alerting
+- Long-term data retention
 
-### Custom Metrics
-```python
-# Example custom metric for security score
-PUT_METRIC_DATA = {
-    'Namespace': 'AWS/Security/CustomMetrics',
-    'MetricData': [
-        {
-            'MetricName': 'SecurityScore',
-            'Dimensions': [
-                {'Name': 'AccountId', 'Value': account_id},
-                {'Name': 'Region', 'Value': region}
-            ],
-            'Value': security_score,
-            'Unit': 'Percent'
-        }
-    ]
+#### Staging (`config/staging.auto.tfvars`)
+- Production-like configuration
+- Subset of accounts for testing
+- Moderate retention policies
+- Enhanced monitoring
+
+#### Development (`config/dev.auto.tfvars`)
+- Basic monitoring
+- Minimal cost configuration
+- Short retention periods
+- Limited compliance requirements
+
+### Spoke Account Configuration
+
+Configure your spoke accounts in the respective JSON files:
+
+```json
+{
+  "description": "Production spoke accounts",
+  "environment": "prod",
+  "spoke_accounts": [
+    {
+      "account_id": "123456789012",
+      "account_name": "production-workloads",
+      "owner_team": "platform-engineering",
+      "compliance_requirements": ["soc2", "pci-dss"],
+      "monitoring_level": "enhanced"
+    }
+  ]
 }
 ```
 
-## 🛡️ Security Features
+## Security Services
 
-### Supported Security Services
-- ✅ AWS Config with 50+ managed rules
-- ✅ Security Hub with custom insights
-- ✅ GuardDuty with enhanced monitoring
-- ✅ Access Analyzer for external access
-- ✅ CloudTrail for audit logging
-- ✅ VPC Flow Logs for network monitoring
-- ✅ Inspector for vulnerability assessment
-- ✅ Macie for data classification
-- ✅ Systems Manager compliance
-- ✅ Cost Anomaly Detection
+### AWS Security Hub
+- Centralized security findings aggregation
+- CIS AWS Foundations Benchmark
+- AWS Foundational Security Standard
+- PCI-DSS compliance standard
+- Custom security standards
 
-### Automated Remediation
-- **Auto-remediation Lambda functions** for common security issues
+### Amazon GuardDuty
+- Threat detection and malware protection
+- VPC Flow Logs analysis
+- DNS logs monitoring
+- Kubernetes protection
+- S3 protection
+
+### AWS Config
+- Configuration compliance monitoring
+- Conformance packs for industry standards
+- Resource relationship tracking
+- Configuration change notifications
+
+### AWS Access Analyzer
+- IAM policy analysis
+- Cross-account access review
+- Public resource detection
+- Unused access identification
+
+### Amazon Inspector
+- Vulnerability assessment
+- Container image scanning
+- Lambda function security assessment
+- Network reachability analysis
+
+### Amazon Macie
+- Sensitive data discovery
+- Data classification
+- S3 bucket security analysis
+- PII detection and alerts
+
+## Monitoring & Dashboards
+
+### Executive Dashboard
+- High-level security metrics
+- Compliance status overview
+- Critical findings summary
+- Cost trends
+
+### Operational Dashboard
+- Service-specific metrics
+- Resource compliance status
+- Finding remediation tracking
+- Performance metrics
+
+### Compliance Dashboard
+- CIS compliance status
+- PCI-DSS compliance tracking
+- Failed compliance checks
+- Remediation progress
+
+### Account-Specific Dashboards
+- Per-account security metrics
+- Critical findings by account
+- Resource-specific analysis
+- Custom account insights
+
+## Cost Management
+
+### Cost Analysis Features
+- Daily and monthly cost breakdowns
+- Service-specific cost tracking
+- Account-level cost attribution
+- Cost trend analysis
+
+### Optimization Recommendations
+- Rightsizing recommendations
+- Service-specific optimizations
+- Resource utilization analysis
+- Cost forecasting
+
+### Cost Anomaly Detection
+- Automated anomaly detection
+- Threshold-based alerting
+- Impact assessment
+- Root cause analysis
+
+## API Reference
+
+### Lambda Functions
+
+#### Security Findings Processor
+- **Purpose**: Process and correlate security findings
+- **Trigger**: EventBridge events from security services
+- **Output**: Processed findings to S3 data lake
+
+#### Dashboard Generator
+- **Purpose**: Create and update CloudWatch dashboards
+- **Trigger**: Scheduled CloudWatch Events
+- **Output**: Dynamic dashboards based on current data
+
+#### Cost Analyzer
+- **Purpose**: Analyze costs and generate recommendations
+- **Trigger**: Daily schedule
+- **Output**: Cost reports and optimization recommendations
+
+## CI/CD Pipeline
+
+### GitHub Actions Workflow
+
+The platform includes a comprehensive CI/CD pipeline:
+
+1. **Code Validation**
+   - Terraform syntax validation
+   - Python code linting
+   - Security scanning with tfsec
+
+2. **Testing**
+   - Unit tests for Lambda functions
+   - Integration tests for Terraform modules
+   - Security policy validation
+
+3. **Deployment**
+   - Multi-environment deployment
+   - Automatic rollback on failure
+   - Post-deployment validation
+
+4. **Monitoring**
+   - Deployment success/failure notifications
+   - Performance monitoring
+   - Health checks
+
+## Security Considerations
+
+### IAM Permissions
+
+The platform follows the principle of least privilege:
+
+- Service-specific IAM roles
+- Cross-account access with conditions
+- Resource-based policies
+- Regular access review
+
+### Data Protection
+
+- KMS encryption for all data at rest
+- Encryption in transit for all communications
+- S3 bucket policies with access controls
+- CloudTrail logging for all API calls
+
+### Network Security
+
+- VPC Flow Logs enabled
+- Security group monitoring
+- Network ACL analysis
+- DNS query logging
+
+## Troubleshooting
+
+### Common Issues
+
+#### 1. Cross-Account Access Issues
+```bash
+# Verify assume role permissions
+aws sts assume-role --role-arn arn:aws:iam::ACCOUNT:role/SecurityAuditRole --role-session-name test
+```
+
+#### 2. Lambda Function Timeout
+- Check CloudWatch logs for the specific function
+- Increase memory allocation if needed
+- Optimize function code for better performance
+
+#### 3. GuardDuty Findings Not Appearing
+- Verify GuardDuty is enabled in all required regions
+- Check EventBridge rules configuration
+- Ensure IAM permissions are correct
+
+#### 4. Config Rules Not Evaluating
+- Verify Config service role permissions
+- Check Config delivery channel configuration
+- Ensure Config recorder is enabled
+
+### Logs and Monitoring
+
+- **CloudWatch Logs**: `/aws/lambda/security-findings-processor`
+- **Application Logs**: Search for ERROR or WARN in CloudWatch
+- **Terraform State**: Stored in S3 backend with versioning
+- **Cost Analysis**: CloudWatch metrics under `AWS/Security/Costs`
+
+## Contributing
+
+### Development Setup
+
+1. **Clone repository**
+   ```bash
+   git clone <repository-url>
+   cd aws-audit-platform
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements-dev.txt
+   ```
+
+3. **Run tests**
+   ```bash
+   python -m pytest tests/
+   ```
+
+4. **Terraform validation**
+   ```bash
+   cd terraform/hub
+   terraform init
+   terraform validate
+   terraform plan
+   ```
+
+### Branch Protection
+
+- `main` branch requires pull request reviews
+- All CI/CD checks must pass before merging
+- Squash and merge preferred for clean history
+
+### Commit Guidelines
+
+- Use conventional commit format
+- Include clear descriptions
+- Reference issues where applicable
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support
+
+### Documentation
+- [Deployment Guide](docs/deployment-guide.md)
+- [API Reference](docs/api.md) 
+- [Troubleshooting Guide](docs/troubleshooting-guide.md)
+
+### Getting Help
+- Create GitHub issue for bugs or feature requests
+- Check existing documentation first
+- Provide detailed logs and configuration when reporting issues
+
+### Maintenance
+- Regular updates for AWS service changes
+- Quarterly security reviews
+- Monthly dependency updates
+
+---
+
+For more detailed information, please refer to the comprehensive documentation in the [docs/](docs/) directory.
 - **Workflow automation** using Step Functions
 - **Approval processes** for critical changes
 - **Rollback capabilities** for failed remediations
